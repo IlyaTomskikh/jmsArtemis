@@ -11,6 +11,6 @@ public class ReceiverService {
 
     @JmsListener(destination = "${jms.queue}")
     public void receiveMessage(String message) {
-        logger.info("Received: " + message);
+        logger.info("Received: " + message + ", free memory in heap: " + Runtime.getRuntime().freeMemory() + " bytes.");
     }
 }
