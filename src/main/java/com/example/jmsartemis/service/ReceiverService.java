@@ -12,9 +12,13 @@ public class ReceiverService {
 
     @JmsListener(destination = "${jms.queue}")
     public void receiveMessage(String message) {
-        logger.info("\nThread ID = " + Thread.currentThread().getId() +
+        try {
+            logger.info("\nThread ID = " + Thread.currentThread().getId() +
                     "\nReceived: " + message +
                     "\nFree memory in heap: " + Runtime.getRuntime().freeMemory() + " bytes." +
                     "\n________________________________________________________________________\n");
+        } catch (Exception e) {
+            logger.info("Disconnected on receive()");
+        }
     }
 }

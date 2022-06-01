@@ -1,5 +1,6 @@
 package com.example.jmsartemis.service;
 
+import com.example.jmsartemis.controller.MessageController;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,10 @@ public class DispatcherService {
     }
 
     public void sendMessage(String message) {
-        jmsTemplate.convertAndSend(jmsQueue, message);
+        try {
+            jmsTemplate.convertAndSend(jmsQueue, message);
+        } catch (Exception e) {
+            System.out.println("Disconnected on send()");
+        }
     }
 }
